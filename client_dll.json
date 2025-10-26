@@ -1,0 +1,828 @@
+{
+  "client.dll": {
+    "classes": {
+      "3": {
+        "fields": {
+          "": 0,
+          "\u0001": 0,
+          "\u0002": 0,
+          "\u0003\u001c\\9$�-\n�/": 726944976,
+          "\t": 0,
+          "\n": 0,
+          "\u000b": 104696800,
+          "\u001b": 104696960,
+          "\u001e": 0,
+          "\u001f": 0,
+          "%����\u001aK\\P3Au\u0003\u001e$<�4p\u0013��q\u00072�\f\u001ac~)�\u0004�": 0,
+          ", team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_keychain' && !ItemInfo.IsKeychain(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemKeychainSlotCount(id) > InventoryAPI.GetI": 726946000,
+          "-��?_\u001d�Q�\u0012z4\u0018�\u001d��\f��\u0014�����g��\u0005�2�\t�j�f�\"|ָ����Tq?�\u0012>\u001c+Ô5F\u0002d�\u0017�\u0004�\nl\u0013�#xV�S��\u001f\u000e�\n��\u000f@F���F@�£��_?��_ B\u00180TZ": 0,
+          "/���": 726942496,
+          "0�j\u0007*\u0003": 104111984,
+          ":�x���3k��\"�^\u0014�_X�y\u0007\u0005��\u0005�s\u0017��\u0002�?�\r\u0018_i=�\u0012x}�\u001cuRh\u001a���6i<�\r?����)Q�\u000b1��\u0015�uD\b�\u0015\u0019΂��M": 0,
+          "@B�L*\u0003": 0,
+          "Ho���": 104094240,
+          "K0�bhc\u0003�i9�d\u000bY�k��!\u0010���d�F�@}k�N%9�Z\u0005��Hh�>�A\u0002�\u0002\u000bm�H����-נ�\u0007��ɚi��<~�VZ�BC^�ܭ���A[�5�)�h�B�V擑BX�<$g=���\u000b�\u0001�sąu5\u0002e��5�O�$34��\u0010�>�@uen�IlZ�����j�9k-�[�": 0,
+          "M\u0016c�": 128603424,
+          "NoteamDot.AddClass('hidden');\n        elTDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elCtDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elNoteamDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elFavoriteIconNoteam.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('noteam', id));\n        elFavoriteIconCt.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('ct', id));\n        elFavoriteIconT.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    functi": 726945232,
+          "P�4\u0006*\u0003": 0,
+          "S����\u001f��v:j����VM?\f�:j��\"��N�j���H?\u0013\u001f�QL��=tRCi\u001d��\u0010�F��X�S/�������#\u0011�M��\u0016U7�9+�w�\u0001�$�����<�t�\u0004K��\n)�\u0010��;\u0012@`  �": -1,
+          "Z�(\u0015.��\u0013": 11,
+          "a2]\u000e����_\u000f?�/���h���g�7�]8x@l�O\u000f��p�{���Gp\u0016\\���<�\u0006\u0003eK\u0007?ѷA6p耼�xRf_`����p� y��Z���4^\b��߿�\u0006��+���A��\u0003`������h��.}������E�\u0013��|}���fy<��e\u0003ґ���a\u0003E��1����\u001b[��y�\u001a�0h�E\f&N��\f�6�\u001f���ҟ+~�={��_0�n��y\u001e\u001e��K���\u001c��t�������4�\u0005M�\f�һo���4g\f8�\u0005�/pD��\u0001ɼ�}���<\u0016mM^�*ب\u0005&z:&Fԭ�3on\u001fv{���": 726944848,
+          "csgo_simple.vfx": 1065353216,
+          "en', !InventoryAPI.ItemIsInFavorites('ct', id));\n        elFavoriteIconT.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_p": 726945616,
+          "initionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_keychain' && !ItemInfo.IsKeychain(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemKeychainSlotCount(id) > InventoryAPI.GetItemKeychainCount(id));\n        }\n    }\n    ;\n    function _SetRentalTime(id) {\n        let elLabel = $.GetContextPanel().FindChi": 726946128,
+          "item-tile__equipped__radiodot--filled');\n        elNoteamDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elFavoriteIconNoteam.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('noteam', id));\n        elFavoriteIconCt.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('ct', id));\n        elFavoriteIconT.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capabilit": 726945360,
+          "i����\u001d���4\u001e�໴�wܟ�+g\b�ޤ\r\u00186�\u000f�\u0010����W�\u0015i\u0010�K?�+f\u0014|��O1Ǚ\u0013~ծ�\u0001D��+�����\u0001$9\u001c�>�+��%��W": 124426680,
+          "p�j\u0007*\u0003": 104110928,
+          "t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > Inventor": 726945744,
+          "uipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_keychain' && !Ite": 726945872,
+          "|�%���앗u/����'\u0007�����T\u00188��\u0019@�P��1x,.\u0016\u001f���a�ﮒj=\"��<\u0003H&�����h�!���V���\u0007!W�нh����ܣ\u001b���\u0006�j�b[x��U�\u0011�;e{C��W���I�[��@���0N0vѧ=,ˡ�\u001f;U�+5*=�F��ШPwW�\u001a�^V���n��]+7��Xy�R��`��� ��?x�w@�r��X�o�v�5?V|-���A��'\u00067�e[��`Vn����\u0007ُ98\r� ��N��_�\f�=&.>�\u0014jqH��ypuw\u0001��\f����m�": 726944720,
+          "Į��ܾ�V��F�\u001c?y��!Q�\u0016�&ω@8p��ir�9ƍ�0e�]���i��V������DZ�\u0016�Dt�\u0012U\u0003���a\u0003�L\u0010hk\"6V\u000b�AyN\u0015H\u0003ᐚ�\u000e�2<«�eܰ{:X���B\f��\n�\u0010��\u001d�����\u001c���$�M���\u0018��0a�y,�] H����\u001e�]\"I�H�N���]��C�|�\u000fQ~-䂡sj�\u0019H���\n�e��=�q\u001e\u0005U\u0001�i�\u0001\u001d!\u0002B��\u0010!\u0011\u0010B\u0004�\u0010B�\u0001A\u0006�\u0010\u0011\th�\u0014&\u001d\u0012@": 0,
+          "Ƞj\u0007*\u0003": 0,
+          "˩���ҙ�-%\u0010_���+{\"��]1>X|\u0004J�ܿ�Q��\u0015��\u0006��������J�w\u0007�s}�~": 726942768,
+          "ثj\u0007*\u0003": 0,
+          "�\u0002\u001bO�w�\u0006\n ^�\u0003K'k�OP�\u001dx��JzH\u0016\t3��\u0001�,\u0005���\u0003�\\&���|#n�": 124426432,
+          "�\u0007": 11,
+          "�\u0018�|�|�`\\�\u0010f�0�\f\u001bb\u0016�\u000b�:����ui\u0014\fs3��1�U1���b��se4�uކ�/��������~��Ρ�������{�����������l��\u001fU���Ϸ������x�{ȡ\u0011���)\u000f����.G�\fn�����S\u0013n\u0018:�>�r�}?�\u001e_y����<��\u001e���)�H�b���������X���S¦�c��ȋ!�r���>�u��\u0007x��\u0018�Rٜ�2���TV]�O\u001e��_ϯǽg��xޑHG䏿�`���y\u0016\r��튫�������y����{�z�\u001e��������W>��s3ɲXg\u001bn�\t.<*z�����\u0018j2�*�خ��\u0001ӊ\u0006Ŭ�\u0003��\u0013\u0014���\u0003߇IO�E}�y\u001a.�*՝+<��m��\u0013\u0003\u0005��\u0002�E/��8\u0013$��+\u0003�u�<�.�Q\u001b�p�42���v�a\t�?t�il�r%��kD\u000f[\u0012���\u000fy��\u001bJ��\u0016�\u001a�\u0012!�7H9<Ϯ\u0004\u001b���\u000f\u001a�q6ᦜ��1���\u0006h���@�H\u0011#����^H\u0004���{C�1A���'�^1���-���S xG����;�&\u001d�O\u0002(__yB����\u0011�u4��\u000e�g\u0013�c��\u0005��ii>j\u001a�oڃp�\u000fFٙ�\u0005�+I�m\u000f)�1qM��\u001d*L>t�+�\u000bt�ߚ\u001e5�%�\u0004��<?s^\u001e��܃��}�o\u000b�ђ�(�/��X��J": 0,
+          "�\u001e4\u0006*\u0003": 104079056,
+          "�M�DB< ��Ӵ\r\u000b�?1��� ��M��L��a��fk�\u0019�.t�6xM\u001b\u0002�R�}�\u0010t�q��%��": 0,
+          "�V���": 0,
+          "�[4\u0006*\u0003": 104094672,
+          "�c�\u0002�\u0003�\u0004�\u0005}\u0006l\u0007�a]\bN\t�dB\n6\u000b\u0018\r��2�": 0,
+          "�j\u0007*\u0003": 104108304,
+          "�m�\u000e�u��Lp�\u0006�]��>wO��:uk��Yo^�T\u0004�(id�g�aN.��\u0018�\u0004�(!B�!�̨\u0003\u0012@   �": 726945104,
+          "�u�<�.�Q\u001b�p�42���v�a\t�?t�il�r%��kD\u000f[\u0012���\u000fy��\u001bJ��\u0016�\u001a�\u0012!�7H9<Ϯ\u0004\u001b���\u000f\u001a�q6ᦜ��1���\u0006h���@�H\u0011#����^H\u0004���{C�1A���'�^1���-���S xG����;�&\u001d�O\u0002(__yB����\u0011�u4��\u000e�g\u0013�c��\u0005��ii>j\u001a�oڃp�\u000fFٙ�\u0005�+I�m\u000f)�1qM��\u001d*L>t�+�\u000bt�ߚ\u001e5�%�\u0004��<?s^\u001e��܃��}�o\u000b�ђ�(�/��X��J": 0,
+          "�Ue�;���㣷\u000f�$uR����\u0003���\u0004ؓ����=�\u0006dh�b��m*� \u000b����/uq�\r�\u0011�\b�\b\u0016|A\u00162�y\u00028r��k}��>��x�辌���!s馊㒣�M�{A�E�Ţ�\u001fB��qAԻ0��f\u000f�����x�3^����9�&\"\u001e��v&�׷$|X������]Ϡi\r<D\u0013|]sd<\u001fg`�s����tY��\u000bǂį�&�\u001e\u0004�'�k�B>t�y��\\�_p��I)���֪+\u001c�`5�w\u0006�u���-D_\u0005?�N��^�#%�%`��2(�\u0017��Ѷ����Rǋh��殽�4O\n\u000fFO>(�#\u0005����i8\u0002��[�1�܊m���8*\u0019S���W\u0005O���\u000f\b�+�\u0003�~\u0018c\u001d��%�Y[���\u0001@}\u0010�]\u001b!W8`�ytA��\f����\t�~\u000b\\���S_\bH�uA\u000f�\u0015\u000b\u000f�\u001b": 726944400,
+          "�Ə��\u0017�u�6^�F�&�R^7B\u0016�\u0015M�;�\u0004AK��L��bF�\u0011nA�0h\u000b�KCs8C�]�c2�\u0002\u001f!���ɔ���+�\u000f͗���^�'�!Ur/4�6�芇���W�\u001ew��\f~�\u000b*T4�oߢ��%�y��F�l�u컵r��x\":�D��ns�\u001c~�\\{o��8:��\u001e��Ec4���3c�͝ Jts��3��a\u0006g��٩��\u000b����\b�ί_�Q�\b��՟@\u0015/�m��*0�����7b��_�e��=\bBр�R����+�/�\u0003{�\u0001�A�sB\bK�,": 0,
+          "��\u0005��ii>j\u001a�oڃp�\u000fFٙ�\u0005�+I�m\u000f)�1qM��\u001d*L>t�+�\u000bt�ߚ\u001e5�%�\u0004��<?s^\u001e��܃��}�o\u000b�ђ�(�/��X��J": 104092816,
+          "��\u0013�A�<�\b;�\u0001�,B�.\u001bI�t8�M�F�(�d��\u0002r�+�m��MS|z&�j_\u0013`�$m\u001dd&�Έ�sF�fi)��N���\u0015��Q3�>\u0001�tC�p\u001b��,\u0014���k_O�7|�\u0010ם�<w��o": 0,
+          "��4\u0006*\u0003": 0,
+          "��96\u0007��\u000f�\u000fx��K�R�?[a|c��S\u000b��.-��wf��\u001a`\u001c8�Pz��G�S���n�9�gx_U|~��:�\u00103�\u0005�oH*�Z]�}q��\f�(�!�z��\u0005\u0007O�˸�x\".�\u0007\u0016�~C>}~���x-�]\u0005�>�\u0003�\u0018�Ӆ\u0005(c&��\r,�|9": 726945488,
+          "��Ak�\u0004Hh\u0015J�D^�'�kt@�ɢxL\u0014�{;���\u0004�]\u0001�։�9��Kq\u001b\u0007Y�|�n�(_gW�\u000f`}�@5=]cB�3Nx��!xo\u0005�_\u001c�z�\u0002o\u001d��s6L�*�6$;�\u001a���![���h\u0003�v�U,�#�M\u0003�w4-s,����Wf��\b�uG����~�\"��C�4\u000b��k\u0018G�X}��\u0006�����1������`u��p�\u001aO��h�\u0013\u0003�[\u0016�]\u0001(��\u001c��\u00016Z��\u0007�\u0002p]#\u0002�3C": 0,
+          "��j\u0007*\u0003": 104111616,
+          "���PxEW\u001c\u001e�IpI�\u0012�]��S6�G�W�X��+�C�\u0011`v�\b��hv�z���\u0007�~'�}��I ��0g緉\u001b\u0003��:�[F�q��qtg��:/��D�-���\t��B�c�\"pg�{oS-DC�\u0011\u001f�k�w&\b�\u001f|S����*C�W<\u001f��2L�\u0012�]��S6�G�W�X��+\u0019��\\�_����k���+�R��ñG��]�B���\u0013]�M���Zs\\����m�~ ��a4�瑫�v��WVK8�~\u000fd�����1�w�-���@�C~����2��\u0007�=>��'�G��\b\u001f��k\b��y�5B\u001c|9\u001f�r���.\u0004稇���r�y�E\u001f~�#pD{���ӽo��'E�\u001cP�#�=�!�޿;y&y����Us\u0019�.�\u001f��{�w��]����~ߖ��w�u�[��?����\u0017{8��>���^�?9j)K�\b}���W��\t��\u0015擧]����yӊ�<�f���N?�Y\bk�\u0003\u0010\u000b���%ͺ����(;[2��Ue�;���㣷\u000f�$uR����\u0003���\u0004ؓ����=�\u0006dh�b��m*� \u000b����/uq�\r�\u0011�\b�\b\u0016|A\u00162�y\u00028r��k}��>��x�辌���!s馊㒣�M�{A�E�Ţ�\u001fB��qAԻ0��f\u000f�����x�3^����9�&\"\u001e��v&�׷$|X������]Ϡi\r<D\u0013|]sd<\u001fg`�s����tY��\u000bǂį�&�\u001e\u0004�'�k�B>t�y��\\�_p��I)���֪+\u001c�`5�w\u0006�u���-D_\u0005?�N��^�#%�%`��2(�\u0017��Ѷ����Rǋh��殽�4O\n\u000fFO>(�#\u0005����i8\u0002��[�1�܊m���8*\u0019S���W\u0005O���\u000f\b�+�\u0003�~\u0018c\u001d��%�Y[���\u0001@}\u0010�]\u001b!W8`�ytA��\f����\t�~\u000b\\���S_\bH�uA\u000f�\u0015\u000b\u000f�\u001b": 726944272,
+          "����": 104094368
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "7": {
+        "fields": {
+          "": 0,
+          "\u0001": 0,
+          "\u0002": 0,
+          "\u0003\u001c\\9$�-\n�/": 726944976,
+          "\t": 0,
+          "\n": 0,
+          "\u000b": 104696800,
+          "\u001b": 104696960,
+          "\u001e": 0,
+          "\u001f": 0,
+          "%����\u001aK\\P3Au\u0003\u001e$<�4p\u0013��q\u00072�\f\u001ac~)�\u0004�": 0,
+          ", team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_keychain' && !ItemInfo.IsKeychain(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemKeychainSlotCount(id) > InventoryAPI.GetI": 726946000,
+          "-��?_\u001d�Q�\u0012z4\u0018�\u001d��\f��\u0014�����g��\u0005�2�\t�j�f�\"|ָ����Tq?�\u0012>\u001c+Ô5F\u0002d�\u0017�\u0004�\nl\u0013�#xV�S��\u001f\u000e�\n��\u000f@F���F@�£��_?��_ B\u00180TZ": 0,
+          "/���": 726942496,
+          "0�j\u0007*\u0003": 104075664,
+          ":�x���3k��\"�^\u0014�_X�y\u0007\u0005��\u0005�s\u0017��\u0002�?�\r\u0018_i=�\u0012x}�\u001cuRh\u001a���6i<�\r?����)Q�\u000b1��\u0015�uD\b�\u0015\u0019΂��M": 0,
+          "@B�L*\u0003": 0,
+          "Ho���": 104094240,
+          "K0�bhc\u0003�i9�d\u000bY�k��!\u0010���d�F�@}k�N%9�Z\u0005��Hh�>�A\u0002�\u0002\u000bm�H����-נ�\u0007��ɚi��<~�VZ�BC^�ܭ���A[�5�)�h�B�V擑BX�<$g=���\u000b�\u0001�sąu5\u0002e��5�O�$34��\u0010�>�@uen�IlZ�����j�9k-�[�": 0,
+          "M\u0016c�": 128603424,
+          "NoteamDot.AddClass('hidden');\n        elTDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elCtDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elNoteamDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elFavoriteIconNoteam.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('noteam', id));\n        elFavoriteIconCt.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('ct', id));\n        elFavoriteIconT.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    functi": 726945232,
+          "P�4\u0006*\u0003": 0,
+          "S����\u001f��v:j����VM?\f�:j��\"��N�j���H?\u0013\u001f�QL��=tRCi\u001d��\u0010�F��X�S/�������#\u0011�M��\u0016U7�9+�w�\u0001�$�����<�t�\u0004K��\n)�\u0010��;\u0012@`  �": -1,
+          "Z�(\u0015.��\u0013": 11,
+          "a2]\u000e����_\u000f?�/���h���g�7�]8x@l�O\u000f��p�{���Gp\u0016\\���<�\u0006\u0003eK\u0007?ѷA6p耼�xRf_`����p� y��Z���4^\b��߿�\u0006��+���A��\u0003`������h��.}������E�\u0013��|}���fy<��e\u0003ґ���a\u0003E��1����\u001b[��y�\u001a�0h�E\f&N��\f�6�\u001f���ҟ+~�={��_0�n��y\u001e\u001e��K���\u001c��t�������4�\u0005M�\f�һo���4g\f8�\u0005�/pD��\u0001ɼ�}���<\u0016mM^�*ب\u0005&z:&Fԭ�3on\u001fv{���": 726944848,
+          "csgo_simple.vfx": 1065353216,
+          "en', !InventoryAPI.ItemIsInFavorites('ct', id));\n        elFavoriteIconT.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_p": 726945616,
+          "initionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_keychain' && !ItemInfo.IsKeychain(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemKeychainSlotCount(id) > InventoryAPI.GetItemKeychainCount(id));\n        }\n    }\n    ;\n    function _SetRentalTime(id) {\n        let elLabel = $.GetContextPanel().FindChi": 726946128,
+          "item-tile__equipped__radiodot--filled');\n        elNoteamDot.RemoveClass('item-tile__equipped__radiodot--filled');\n        elFavoriteIconNoteam.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('noteam', id));\n        elFavoriteIconCt.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('ct', id));\n        elFavoriteIconT.SetHasClass('hidden', !InventoryAPI.ItemIsInFavorites('t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capabilit": 726945360,
+          "i����\u001d���4\u001e�໴�wܟ�+g\b�ޤ\r\u00186�\u000f�\u0010����W�\u0015i\u0010�K?�+f\u0014|��O1Ǚ\u0013~ծ�\u0001D��+�����\u0001$9\u001c�>�+��%��W": 124426680,
+          "p�j\u0007*\u0003": 722720032,
+          "t', id));\n        for (let team of ['t', 'ct', 'noteam']) {\n            if (_ItemIsInShuffle(id, team)) {\n                _SetEquipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > Inventor": 726945744,
+          "uipIcon(true, team);\n            }\n            else if (InventoryAPI.IsEquipped(id, team)) {\n                _SetEquipIcon(false, team);\n            }\n        }\n    }\n    ;\n    function _ItemIsInShuffle(id, team) {\n        let slot = InventoryAPI.GetRawDefinitionKey(id, 'flexible_loadout_group');\n        if (['secondary0', 'secondary', 'smg', 'rifle'].includes(slot)) {\n            let itemDefIndex = InventoryAPI.GetItemDefinitionIndex(id);\n            slot = LoadoutAPI.GetSlotEquippedWithDefIndex(team, itemDefIndex);\n        }\n        return LoadoutAPI.IsShuffleEnabled(team, slot) && InventoryAPI.ItemIsInFavorites(team, id);\n    }\n    ;\n    function _SetEquipIcon(isShuffle, team) {\n        let elCtDot = $.GetContextPanel().FindChildInLayoutFile('ItemEquipped-' + team);\n        elCtDot.RemoveClass('hidden');\n        elCtDot.AddClass('item-tile__equipped__radiodot--filled');\n        elCtDot.SetHasClass('shuffle', isShuffle);\n    }\n    ;\n    function _SetStickers(id) {\n        let elParentStickers = $.GetContextPanel().FindChildInLayoutFile('StickersOnWeapon');\n        elParentStickers.RemoveAndDeleteChildren();\n        let elParentKeychains = $.GetContextPanel().FindChildInLayoutFile('KeychainsOnWeapon');\n        elParentKeychains.RemoveAndDeleteChildren();\n        let listStickers = ItemInfo.GetitemStickerList(id);\n        for (let entry of listStickers) {\n            $.CreatePanel('Image', elParentStickers, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentStickers.SetHasClass('hidden', listStickers.length <= 0 || listStickers === undefined);\n        let listKeychains = ItemInfo.GetitemKeychainList(id);\n        for (let entry of listKeychains) {\n            $.CreatePanel('Image', elParentKeychains, 'ItemImage' + entry.image, {\n                src: 'file://{images}' + entry.image + '.png',\n                scaling: 'stretch-to-fit-preserve-aspect',\n                class: 'item-tile__stickers__image'\n            });\n        }\n        elParentKeychains.SetHasClass('hidden', listKeychains.length <= 0 || listKeychains === undefined);\n    }\n    ;\n    function _SetRecentLabel(id) {\n        let isRecentValue = InventoryAPI.GetItemSessionPropertyValue(id, 'recent');\n        let isUpdatedValue = InventoryAPI.GetItemSessionPropertyValue(id, 'updated');\n        let elLabel = $.GetContextPanel().FindChildInLayoutFile('JsRecent');\n        if (isUpdatedValue === '1' || isRecentValue === '1') {\n            let locString = 'recent';\n            if (isRecentValue === '1') {\n                let strItemPickupMethod = InventoryAPI.GetItemSessionPropertyValue(id, 'item_pickup_method');\n                if (strItemPickupMethod && ['xpshopredeem', 'quest_reward'].includes(strItemPickupMethod)) {\n                    locString = strItemPickupMethod;\n                }\n            }\n            else {\n                locString = 'updated';\n            }\n            elLabel.RemoveClass('hidden');\n            elLabel.text = $.Localize('#inv_session_prop_' + locString);\n            return;\n        }\n        elLabel.AddClass('hidden');\n    }\n    ;\n    function _TintSprayImage(id) {\n        let elImage = $.GetContextPanel().FindChildInLayoutFile('ItemImage');\n        TintSprayIcon.CheckIsSprayAndTint(id, elImage);\n    }\n    ;\n    function _DisableTile(id) {\n        let capabilityInfo = _GetPopUpCapability();\n        if (capabilityInfo && capabilityInfo.capability === 'can_sticker' && !ItemInfo.IsSticker(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_patch' && !ItemInfo.IsPatch(id)) {\n            $.GetContextPanel().enabled = (InventoryAPI.GetItemStickerSlotCount(id) > InventoryAPI.GetItemStickerCount(id));\n        }\n        else if (capabilityInfo && capabilityInfo.capability === 'can_keychain' && !Ite": 726945872,
+          "|�%���앗u/����'\u0007�����T\u00188��\u0019@�P��1x,.\u0016\u001f���a�ﮒj=\"��<\u0003H&�����h�!���V���\u0007!W�нh����ܣ\u001b���\u0006�j�b[x��U�\u0011�;e{C��W���I�[��@���0N0vѧ=,ˡ�\u001f;U�+5*=�F��ШPwW�\u001a�^V���n��]+7��Xy�R��`��� ��?x�w@�r��X�o�v�5?V|-���A��'\u00067�e[��`Vn����\u0007ُ98\r� ��N��_�\f�=&.>�\u0014jqH��ypuw\u0001��\f����m�": 726944720,
+          "Į��ܾ�V��F�\u001c?y��!Q�\u0016�&ω@8p��ir�9ƍ�0e�]���i��V������DZ�\u0016�Dt�\u0012U\u0003���a\u0003�L\u0010hk\"6V\u000b�AyN\u0015H\u0003ᐚ�\u000e�2<«�eܰ{:X���B\f��\n�\u0010��\u001d�����\u001c���$�M���\u0018��0a�y,�] H����\u001e�]\"I�H�N���]��C�|�\u000fQ~-䂡sj�\u0019H���\n�e��=�q\u001e\u0005U\u0001�i�\u0001\u001d!\u0002B��\u0010!\u0011\u0010B\u0004�\u0010B�\u0001A\u0006�\u0010\u0011\th�\u0014&\u001d\u0012@": 0,
+          "Ƞj\u0007*\u0003": 0,
+          "˩���ҙ�-%\u0010_���+{\"��]1>X|\u0004J�ܿ�Q��\u0015��\u0006��������J�w\u0007�s}�~": 726942768,
+          "ثj\u0007*\u0003": 0,
+          "�\u0002\u001bO�w�\u0006\n ^�\u0003K'k�OP�\u001dx��JzH\u0016\t3��\u0001�,\u0005���\u0003�\\&���|#n�": 124426432,
+          "�\u0007": 11,
+          "�\u0018�|�|�`\\�\u0010f�0�\f\u001bb\u0016�\u000b�:����ui\u0014\fs3��1�U1���b��se4�uކ�/��������~��Ρ�������{�����������l��\u001fU���Ϸ������x�{ȡ\u0011���)\u000f����.G�\fn�����S\u0013n\u0018:�>�r�}?�\u001e_y����<��\u001e���)�H�b���������X���S¦�c��ȋ!�r���>�u��\u0007x��\u0018�Rٜ�2���TV]�O\u001e��_ϯǽg��xޑHG䏿�`���y\u0016\r��튫�������y����{�z�\u001e��������W>��s3ɲXg\u001bn�\t.<*z�����\u0018j2�*�خ��\u0001ӊ\u0006Ŭ�\u0003��\u0013\u0014���\u0003߇IO�E}�y\u001a.�*՝+<��m��\u0013\u0003\u0005��\u0002�E/��8\u0013$��+\u0003�u�<�.�Q\u001b�p�42���v�a\t�?t�il�r%��kD\u000f[\u0012���\u000fy��\u001bJ��\u0016�\u001a�\u0012!�7H9<Ϯ\u0004\u001b���\u000f\u001a�q6ᦜ��1���\u0006h���@�H\u0011#����^H\u0004���{C�1A���'�^1���-���S xG����;�&\u001d�O\u0002(__yB����\u0011�u4��\u000e�g\u0013�c��\u0005��ii>j\u001a�oڃp�\u000fFٙ�\u0005�+I�m\u000f)�1qM��\u001d*L>t�+�\u000bt�ߚ\u001e5�%�\u0004��<?s^\u001e��܃��}�o\u000b�ђ�(�/��X��J": 0,
+          "�\u001e4\u0006*\u0003": 104079056,
+          "�M�DB< ��Ӵ\r\u000b�?1��� ��M��L��a��fk�\u0019�.t�6xM\u001b\u0002�R�}�\u0010t�q��%��": 0,
+          "�V���": 0,
+          "�[4\u0006*\u0003": 104094672,
+          "�c�\u0002�\u0003�\u0004�\u0005}\u0006l\u0007�a]\bN\t�dB\n6\u000b\u0018\r��2�": 0,
+          "�j\u0007*\u0003": 104108304,
+          "�m�\u000e�u��Lp�\u0006�]��>wO��:uk��Yo^�T\u0004�(id�g�aN.��\u0018�\u0004�(!B�!�̨\u0003\u0012@   �": 726945104,
+          "�u�<�.�Q\u001b�p�42���v�a\t�?t�il�r%��kD\u000f[\u0012���\u000fy��\u001bJ��\u0016�\u001a�\u0012!�7H9<Ϯ\u0004\u001b���\u000f\u001a�q6ᦜ��1���\u0006h���@�H\u0011#����^H\u0004���{C�1A���'�^1���-���S xG����;�&\u001d�O\u0002(__yB����\u0011�u4��\u000e�g\u0013�c��\u0005��ii>j\u001a�oڃp�\u000fFٙ�\u0005�+I�m\u000f)�1qM��\u001d*L>t�+�\u000bt�ߚ\u001e5�%�\u0004��<?s^\u001e��܃��}�o\u000b�ђ�(�/��X��J": 0,
+          "�Ue�;���㣷\u000f�$uR����\u0003���\u0004ؓ����=�\u0006dh�b��m*� \u000b����/uq�\r�\u0011�\b�\b\u0016|A\u00162�y\u00028r��k}��>��x�辌���!s馊㒣�M�{A�E�Ţ�\u001fB��qAԻ0��f\u000f�����x�3^����9�&\"\u001e��v&�׷$|X������]Ϡi\r<D\u0013|]sd<\u001fg`�s����tY��\u000bǂį�&�\u001e\u0004�'�k�B>t�y��\\�_p��I)���֪+\u001c�`5�w\u0006�u���-D_\u0005?�N��^�#%�%`��2(�\u0017��Ѷ����Rǋh��殽�4O\n\u000fFO>(�#\u0005����i8\u0002��[�1�܊m���8*\u0019S���W\u0005O���\u000f\b�+�\u0003�~\u0018c\u001d��%�Y[���\u0001@}\u0010�]\u001b!W8`�ytA��\f����\t�~\u000b\\���S_\bH�uA\u000f�\u0015\u000b\u000f�\u001b": 726944400,
+          "�Ə��\u0017�u�6^�F�&�R^7B\u0016�\u0015M�;�\u0004AK��L��bF�\u0011nA�0h\u000b�KCs8C�]�c2�\u0002\u001f!���ɔ���+�\u000f͗���^�'�!Ur/4�6�芇���W�\u001ew��\f~�\u000b*T4�oߢ��%�y��F�l�u컵r��x\":�D��ns�\u001c~�\\{o��8:��\u001e��Ec4���3c�͝ Jts��3��a\u0006g��٩��\u000b����\b�ί_�Q�\b��՟@\u0015/�m��*0�����7b��_�e��=\bBр�R����+�/�\u0003{�\u0001�A�sB\bK�,": 0,
+          "��\u0005��ii>j\u001a�oڃp�\u000fFٙ�\u0005�+I�m\u000f)�1qM��\u001d*L>t�+�\u000bt�ߚ\u001e5�%�\u0004��<?s^\u001e��܃��}�o\u000b�ђ�(�/��X��J": 104092816,
+          "��\u0013�A�<�\b;�\u0001�,B�.\u001bI�t8�M�F�(�d��\u0002r�+�m��MS|z&�j_\u0013`�$m\u001dd&�Έ�sF�fi)��N���\u0015��Q3�>\u0001�tC�p\u001b��,\u0014���k_O�7|�\u0010ם�<w��o": 0,
+          "��4\u0006*\u0003": 0,
+          "��96\u0007��\u000f�\u000fx��K�R�?[a|c��S\u000b��.-��wf��\u001a`\u001c8�Pz��G�S���n�9�gx_U|~��:�\u00103�\u0005�oH*�Z]�}q��\f�(�!�z��\u0005\u0007O�˸�x\".�\u0007\u0016�~C>}~���x-�]\u0005�>�\u0003�\u0018�Ӆ\u0005(c&��\r,�|9": 726945488,
+          "��Ak�\u0004Hh\u0015J�D^�'�kt@�ɢxL\u0014�{;���\u0004�]\u0001�։�9��Kq\u001b\u0007Y�|�n�(_gW�\u000f`}�@5=]cB�3Nx��!xo\u0005�_\u001c�z�\u0002o\u001d��s6L�*�6$;�\u001a���![���h\u0003�v�U,�#�M\u0003�w4-s,����Wf��\b�uG����~�\"��C�4\u000b��k\u0018G�X}��\u0006�����1������`u��p�\u001aO��h�\u0013\u0003�[\u0016�]\u0001(��\u001c��\u00016Z��\u0007�\u0002p]#\u0002�3C": 0,
+          "��j\u0007*\u0003": 104075328,
+          "���PxEW\u001c\u001e�IpI�\u0012�]��S6�G�W�X��+�C�\u0011`v�\b��hv�z���\u0007�~'�}��I ��0g緉\u001b\u0003��:�[F�q��qtg��:/��D�-���\t��B�c�\"pg�{oS-DC�\u0011\u001f�k�w&\b�\u001f|S����*C�W<\u001f��2L�\u0012�]��S6�G�W�X��+\u0019��\\�_����k���+�R��ñG��]�B���\u0013]�M���Zs\\����m�~ ��a4�瑫�v��WVK8�~\u000fd�����1�w�-���@�C~����2��\u0007�=>��'�G��\b\u001f��k\b��y�5B\u001c|9\u001f�r���.\u0004稇���r�y�E\u001f~�#pD{���ӽo��'E�\u001cP�#�=�!�޿;y&y����Us\u0019�.�\u001f��{�w��]����~ߖ��w�u�[��?����\u0017{8��>���^�?9j)K�\b}���W��\t��\u0015擧]����yӊ�<�f���N?�Y\bk�\u0003\u0010\u000b���%ͺ����(;[2��Ue�;���㣷\u000f�$uR����\u0003���\u0004ؓ����=�\u0006dh�b��m*� \u000b����/uq�\r�\u0011�\b�\b\u0016|A\u00162�y\u00028r��k}��>��x�辌���!s馊㒣�M�{A�E�Ţ�\u001fB��qAԻ0��f\u000f�����x�3^����9�&\"\u001e��v&�׷$|X������]Ϡi\r<D\u0013|]sd<\u001fg`�s����tY��\u000bǂį�&�\u001e\u0004�'�k�B>t�y��\\�_p��I)���֪+\u001c�`5�w\u0006�u���-D_\u0005?�N��^�#%�%`��2(�\u0017��Ѷ����Rǋh��殽�4O\n\u000fFO>(�#\u0005����i8\u0002��[�1�܊m���8*\u0019S���W\u0005O���\u000f\b�+�\u0003�~\u0018c\u001d��%�Y[���\u0001@}\u0010�]\u001b!W8`�ytA��\f����\t�~\u000b\\���S_\bH�uA\u000f�\u0015\u000b\u000f�\u001b": 726944272,
+          "����": 104094368,
+          "����*\u0003": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CClientAlphaProperty": {
+        "fields": {
+          "m_bAlphaOverride": 0,
+          "m_bShadowAlphaOverride": 0,
+          "m_flFadeScale": 28,
+          "m_flRenderFxDuration": 36,
+          "m_flRenderFxStartTime": 32,
+          "m_nAlpha": 19,
+          "m_nDesyncOffset": 20,
+          "m_nDistFadeEnd": 26,
+          "m_nDistFadeStart": 24,
+          "m_nRenderFX": 16,
+          "m_nRenderMode": 17,
+          "m_nReserved": 0,
+          "m_nReserved2": 22
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CCompositeMaterialEditorDoc": {
+        "fields": {
+          "m_KVthumbnail": 40,
+          "m_Points": 16,
+          "m_nVersion": 8
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CFlashlightEffect": {
+        "fields": {
+          "m_FlashlightTexture": 96,
+          "m_MuzzleFlashTexture": 104,
+          "m_bCastsShadows": 88,
+          "m_bIsOn": 16,
+          "m_bMuzzleFlashEnabled": 32,
+          "m_flCurrentPullBackDist": 92,
+          "m_flFarZ": 80,
+          "m_flFov": 76,
+          "m_flLinearAtten": 84,
+          "m_flMuzzleFlashBrightness": 36,
+          "m_quatMuzzleFlashOrientation": 48,
+          "m_textureName": 112,
+          "m_vecMuzzleFlashOrigin": 64
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CGlobalLightBase": {
+        "fields": {
+          "m_AmbientColor1": 110,
+          "m_AmbientColor2": 114,
+          "m_AmbientColor3": 118,
+          "m_AmbientDirection": 56,
+          "m_InspectorSpecularDirection": 80,
+          "m_LightColor": 106,
+          "m_ShadowDirection": 44,
+          "m_SpecularColor": 100,
+          "m_SpecularDirection": 68,
+          "m_SpotLightAngles": 32,
+          "m_SpotLightOrigin": 20,
+          "m_ViewAngles": 224,
+          "m_ViewOrigin": 212,
+          "m_WorldPoints": 240,
+          "m_bBackgroundClearNotRequired": 142,
+          "m_bEnableSeparateSkyboxFog": 196,
+          "m_bEnableShadows": 140,
+          "m_bEnabled": 105,
+          "m_bOldEnableShadows": 141,
+          "m_bSpotLight": 16,
+          "m_bStartDisabled": 104,
+          "m_flAmbientScale1": 176,
+          "m_flAmbientScale2": 180,
+          "m_flCloud1Direction": 152,
+          "m_flCloud1Speed": 148,
+          "m_flCloud2Direction": 160,
+          "m_flCloud2Speed": 156,
+          "m_flCloudScale": 144,
+          "m_flFOV": 128,
+          "m_flFarZ": 136,
+          "m_flFoWDarkness": 192,
+          "m_flGroundScale": 184,
+          "m_flLightScale": 188,
+          "m_flNearZ": 132,
+          "m_flSpecularIndependence": 96,
+          "m_flSpecularPower": 92,
+          "m_flSunDistance": 124,
+          "m_flViewFoV": 236,
+          "m_hEnvSky": 1212,
+          "m_hEnvWind": 1208,
+          "m_vFogOffsetLayer0": 1192,
+          "m_vFogOffsetLayer1": 1200,
+          "m_vFowColor": 200
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CInterpolatedValue": {
+        "fields": {
+          "m_flEndTime": 4,
+          "m_flEndValue": 12,
+          "m_flStartTime": 0,
+          "m_flStartValue": 8,
+          "m_nInterpType": 16
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CInventoryImageData": {
+        "fields": {
+          "inventory_image_data": 16,
+          "m_nNodeType": 0,
+          "name": 8
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataOutlinerDetailExpr",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataOverlayType",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataPreviewWidget",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataOutlinerLeafNameFn",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataOutlinerLeafColorFn",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataOutlinerLeafDetailFn",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataVirtualNodeFactoryFn",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataPreLoadFixupFn",
+            "type": "Unknown"
+          },
+          {
+            "name": "MVDataPostSaveFixupFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CNmEventConsumerHudModelArmsAttributes": {
+        "fields": {},
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CPlayerSprayDecalRenderHelper": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "C_CSGO_PreviewPlayer_GraphController": {
+        "fields": {
+          "m_bCT": 888,
+          "m_nTeamPreviewRandom": 776,
+          "m_pszCharacterMode": 616,
+          "m_pszEndOfMatchCelebration": 736,
+          "m_pszTeamPreviewPosition": 696,
+          "m_pszTeamPreviewVariant": 656,
+          "m_pszWeaponState": 808,
+          "m_pszWeaponType": 848
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "C_Chicken_GraphController": {
+        "fields": {
+          "m_paramActivity": 616,
+          "m_paramEndActivityImmediately": 656,
+          "m_paramSnapToSquatting": 688,
+          "m_sActivityFinished": 720
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "C_CommandContext": {
+        "fields": {
+          "command_number": 160,
+          "needsprocessing": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "C_IronSightController": {
+        "fields": {
+          "m_angDeltaAverage": 48,
+          "m_angViewLast": 144,
+          "m_bIronSightAvailable": 16,
+          "m_flFiringInaccuracyExtraWidthMultiplier": 164,
+          "m_flInterpolationLastUpdated": 44,
+          "m_flIronSightAmount": 20,
+          "m_flIronSightAmountBiased": 28,
+          "m_flIronSightAmountBiased_Interpolated": 40,
+          "m_flIronSightAmountGained": 24,
+          "m_flIronSightAmountGained_Interpolated": 36,
+          "m_flIronSightAmount_Interpolated": 32,
+          "m_flSpeedRatio": 168,
+          "m_vecDotCoords": 156
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "CompMatMutatorCondition_t": {
+        "fields": {
+          "m_bPassWhenTrue": 32,
+          "m_nMutatorCondition": 0,
+          "m_strMutatorConditionContainerName": 8,
+          "m_strMutatorConditionContainerVarName": 16,
+          "m_strMutatorConditionContainerVarValue": 24
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompMatPropertyMutator_t": {
+        "fields": {
+          "m_bCaptureInRenderDoc": 785,
+          "m_bEnabled": 0,
+          "m_bIsScratchTarget": 772,
+          "m_bSplatDebugInfo": 784,
+          "m_colDrawText_Color": 872,
+          "m_nMutatorCommandType": 4,
+          "m_nResolution": 768,
+          "m_nSetValue_Value": 104,
+          "m_strCompressionFormat": 776,
+          "m_strCopyKeysWithSuffix_FindSuffix": 88,
+          "m_strCopyKeysWithSuffix_InputContainerSrc": 80,
+          "m_strCopyKeysWithSuffix_ReplaceSuffix": 96,
+          "m_strCopyMatchingKeys_InputContainerSrc": 72,
+          "m_strCopyProperty_InputContainerProperty": 24,
+          "m_strCopyProperty_InputContainerSrc": 16,
+          "m_strCopyProperty_TargetProperty": 32,
+          "m_strDrawText_Font": 880,
+          "m_strDrawText_InputContainerProperty": 856,
+          "m_strDrawText_InputContainerSrc": 848,
+          "m_strGenerateTexture_InitialContainer": 760,
+          "m_strGenerateTexture_TargetParam": 752,
+          "m_strInitWith_Container": 8,
+          "m_strPopInputQueue_Container": 840,
+          "m_strRandomRollInputVars_SeedInputVar": 40,
+          "m_vecConditionalMutators": 816,
+          "m_vecConditions": 888,
+          "m_vecDrawText_Position": 864,
+          "m_vecRandomRollInputVars_InputVarsToRoll": 48,
+          "m_vecTexGenInstructions": 792
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompositeMaterialAssemblyProcedure_t": {
+        "fields": {
+          "m_vecCompMatIncludes": 0,
+          "m_vecCompositeInputContainers": 48,
+          "m_vecMatchFilters": 24,
+          "m_vecPropertyMutators": 72
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompositeMaterialEditorPoint_t": {
+        "fields": {
+          "m_ChildModelName": 256,
+          "m_KVModelStateChoices": 232,
+          "m_ModelName": 0,
+          "m_bEnableChildModel": 248,
+          "m_flCycle": 228,
+          "m_nSequenceIndex": 224,
+          "m_vecCompositeMaterialAssemblyProcedures": 480,
+          "m_vecCompositeMaterials": 504
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompositeMaterialInputContainer_t": {
+        "fields": {
+          "m_bEnabled": 0,
+          "m_bExposeExternally": 280,
+          "m_nCompositeMaterialInputContainerSourceType": 4,
+          "m_strAlias": 240,
+          "m_strAttrName": 232,
+          "m_strAttrNameForVar": 272,
+          "m_strSpecificContainerMaterial": 8,
+          "m_vecLooseVariables": 248
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompositeMaterialInputLooseVariable_t": {
+        "fields": {
+          "m_bExposeExternally": 8,
+          "m_bExposedVariableIsFixedRange": 32,
+          "m_bHasFloatBounds": 88,
+          "m_bValueBoolean": 68,
+          "m_cValueColor4": 140,
+          "m_flValueFloatW": 128,
+          "m_flValueFloatW_Max": 136,
+          "m_flValueFloatW_Min": 132,
+          "m_flValueFloatX": 92,
+          "m_flValueFloatX_Max": 100,
+          "m_flValueFloatX_Min": 96,
+          "m_flValueFloatY": 104,
+          "m_flValueFloatY_Max": 112,
+          "m_flValueFloatY_Min": 108,
+          "m_flValueFloatZ": 116,
+          "m_flValueFloatZ_Max": 124,
+          "m_flValueFloatZ_Min": 120,
+          "m_nPanoramaRenderRes": 640,
+          "m_nTextureType": 616,
+          "m_nValueIntW": 84,
+          "m_nValueIntX": 72,
+          "m_nValueIntY": 76,
+          "m_nValueIntZ": 80,
+          "m_nValueSystemVar": 144,
+          "m_nVariableType": 64,
+          "m_strExposedFriendlyGroupName": 24,
+          "m_strExposedFriendlyName": 16,
+          "m_strExposedHiddenWhenTrue": 48,
+          "m_strExposedValueList": 56,
+          "m_strExposedVisibleWhenTrue": 40,
+          "m_strName": 0,
+          "m_strPanoramaPanelPath": 632,
+          "m_strResourceMaterial": 152,
+          "m_strString": 624,
+          "m_strTextureCompilationVtexTemplate": 608,
+          "m_strTextureContentAssetPath": 376,
+          "m_strTextureRuntimeResourcePath": 384
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompositeMaterialMatchFilter_t": {
+        "fields": {
+          "m_bPassWhenTrue": 24,
+          "m_nCompositeMaterialMatchFilterType": 0,
+          "m_strMatchFilter": 8,
+          "m_strMatchValue": 16
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          },
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "CompositeMaterial_t": {
+        "fields": {
+          "m_FinalKVs": 88,
+          "m_PreGenerationKVs": 24,
+          "m_TargetKVs": 8,
+          "m_vecGeneratedTextures": 128
+        },
+        "metadata": [
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "GeneratedTextureHandle_t": {
+        "fields": {
+          "m_strBitmapName": 0
+        },
+        "metadata": [
+          {
+            "name": "MPropertyElementNameFn",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "IClientAlphaProperty": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "PF_BIAS_TYPE_STANDARD": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "PF_NOISE_MODIFIER_NONE": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "PF_NOISE_TURB_NONE": {
+        "fields": {
+          "": 1735609667,
+          "\u0007=��Ͻu֔=&S���\u0004�=��\u0004��0\t>���<4�\r>�a=L��=&��=|e�=�i�=�\u0019k=a�\u0002>z��<�\f�=�����": 1162690887,
+          "\u000b": -1,
+          "\u001f\u0017�{�����&��./�,�+�@�#��W%��9*>5L\u0013��>�>�G��6�>fƪ���\t?��>���\u0016?8�\u0014��@\u001a?�}�=�J\u0014?[�s>�\u000b\u0006?\u0018\u0005�>���>���>n��>�!�>�\u0006a>,�\u0004?���=�<\u0003?Rt\r�\"��>J\u0012\u001d��\u0018�>�C���~�>\rb��\u0010=u>��ƾP/\u0011>�Dؾ<�&=JW޾ҥp��\u001eؾS6\u0018�dHƾ�qd��)����������\u0003���>�X��h��*�\u000b�\ts˾\nmC�\f6˾��O=����&)\u0014>/<��R�`>��x�n�>h)7�:M�>L��v$�>J�U���>�Z�<�\u000f�>6\u0003�=���>�'>#O�>��f>�^�>uӎ>��]>^̥>�\n\u001c>Q�>\u0001<�=�C�>\u0010E\u001c����>܉��d��>$+\u001e��ƍ>�=W�\fxt>\u0016&����>>ͷ���Y�=�����*�;�\u001eоيҽ\u001a�ʾ4�I�����k燾\nM��;T��ɚc��ֳ��?\"���ž�﷽Q\u001eվP\u0013��ȥܾD��=d�־�\u0018R>P\u0004��]��>�����v�>�\u0003\u001d�n�\u0001?�׶���\b?ϥ\f>�\u0017\u0003?\b��>�[�>���>���>���>�\r�>\u0010'\u0006?��Q>�T\u0018?Hk�=�!\u001f?6���a\u0013?�؝����>n": 1702057283,
+          " �*��": 908832800,
+          "OnNetUInt16VarChanged": 0,
+          "OnWaterLevelChangeNetworked": 0,
+          "PaintKit_handwrap_leathery_caution": -1,
+          "PaintKit_handwrap_leathery_caution_tag": -1,
+          "PaintKit_handwrap_leathery_snakeskin_orange_tag": -1,
+          "PaintKit_operation10_metalic_green": -1,
+          "PaintKit_operation10_metalic_green_tag": 1702057283,
+          "`�\f\u0007*\u0003": 122958608,
+          "`��\u001b*\u0003": -16754865,
+          "a�": 1702057283,
+          "cents.": 1702057283,
+          "default": 1162890561,
+          "first_or_third_person_@0_#&thirdperson_default": 427202112,
+          "j1��a侂蜾ɥþ,0Ӿ�W��\u001aw���9\u0012������V\u001a�\u0010\u001b��~�\u000b>��ھ\\��>�����3�>�hw����>I\r你�\u0004?�e\u0015=��\n?��B>��\u0005?�_�>5��>���>�y�>�.\u000b?q�Y>x�\u0016?��\\=\u001a�\u0016?�R�_�\n?x���\\f�>�lؾ�\f�>q�\t���\u001a>gO\u001c�����%\"��TT�;�\u001a�򙾾{�\u0005��\u001e\u0002��J˾E6\u001a��#q��\u0002%��[W�'l!�r$\t>\u001d*\u0010��Ӝ>Y��H��>�=��\f5\u000e?p�\u0007�F=\u001d?#�@=��\u001e?�\u0019_>\u0015}\u0012?���>bM�>���>푳>oU\u0006?��W>\u0006`\f?��=��\n?�و�.�\u0001?z�K�:��>5�\u000e��>\u001e�پ+[[>����t��=�V\b�Ƒ��)�\u0007�\f�I��9��%����\f۾�\u001a׾�奄@\u0010��\u0018\u0010W���\t��,����\t��&�=\u0014.��t#i>0LӾ�Զ>�������>z#\u001d�\u001a�\u0003?Pߜ���\u0007?'\b\u000e>ۃ\u0001?G�>���>���>�P�>\u0005��>�lm>KP�>U\t�=B��>,�Q�x��>.�8�3��>\u000f": 1735609667,
+          "le cry</i>": 1702057283,
+          "te.proto": 727859256,
+          "": 1702057283,
+          "�\u0019=�K�>��I>&�>\"��>綮>���>|�P>.H�>�4�=�ܸ>$�/��\u0001�>\u0004O�\n\u001f>9�&���K>�|I���\u0018>\u001a�e����=4Fz��\\\u001f=|i���yx��\"���􇽄�v��*�1g��R3��\u000bL�0�l���\u001c�����D?��ܭ���Iw;": 1702057283,
+          "�6?���>`�@?.Ҧ=�,:?������%?�H��A�\u0007?�\u0007⾰��>\t�\n�/\u000fx>~�\u001a�Y��=��!�6<���\u001f�E\u001bZ��\u0013�gt��|����#߾{tξ\u0007(\u0003��v����\u0011�x�0���\u001a�B�\u0018��+\u001c��G�=f�\u0013�Qʇ>\u0012�": 1702057283,
+          "�=�<f;���=�\u001e=3Q�=hy�=.:�=�\\�=��K=���=Fd�<'��=8\u0014d�` �=Qg3��=$�����:=`��Z:<�,ؽ��޼��ֽ�偽�\r��V|���)x��I׽�dѼ�۽��1<ڥɽa\u0002;=0����؝=uhK��C�=^�+��~�=�r\u0007=�V�=\u001d\r�=9��=0��=��p=�3�=�z�<�j�=#ҷ��J�=��e��Ȁ=pH�����<L���$d���_ƽ!�\u0017�/=��ׯ�������\b��py\u0012�@E���H���'����<��c���0=e�\u000e�n=b=�sT�Q2s=���;\u0015�e=*~�<w\u001f==�N\u0018=���<�\u0017*=b�[<�4\u001d=�A.�R��<\u0006jg��\u000f�<͋��(\u0005,<| ����W;�t��@5\u0006��ŏ�\\�Ȼ$ao�\bN\u0017��|6��y8���軠�C�9~1�0\u000e4��d�:\\�\b��ê;|����=�;��L��H�;": 1162690887,
+          "�X��.�>��2��>\u0014\"�<���>>�=rW�>\rK,>���>���>�\u0013�>$��>�P�>��\u000e?h� >��\u0018?��w�V�\u0005?�3�����>��о��S>J\u0003�F+�=Hv侠���Z�־VuͽjJ̾~`C�.a���Y���1��\u001aW��/�c��MҾ\f\u001cν�;���<�U��CJ�=x���6�4>Ξ�� Rp>w]d��0�>T\u0019�SF�>�K?�\u001eP�>�%�=�J�>1\u000b?>���>T��>�ח>�Ѫ>j�Z>\u0018ݾ>\u0002\\\u0003>���>�\u001b=Qu�>�d��ma�>T�9��ê>�ɗ���l>.�ƾF��=\u0015": 1702057283,
+          "�o���": -1,
+          "�Ⱦ�u>�뚾b\u001d�>\u0018}E��-�>����.\u0003�>": 1702057283,
+          "��vL���4��JG\u0010=�H����\u0006>Wm����T>ʒ>�ء�>||�E��>�L\u0004�~\u001f�>� _=�\u0019�>��\u0013>(E�>�\u0005i>9\ny>w<�>I": 1162690887,
+          "���\u0016*\u0003": 118716000,
+          "���>Y�>\n�Y�\u0018�>xy۽`��>p%�<\u0018_�>�9,>h��>\u0018P�>d��>��>\u0017D�>ȇ\n?�B\u0018>��\u0013?�\u0005\u0015�d�\u000b?�vk��\u0016�>dMо,\u0004�>LT\n��E�=�*\u001b��<���U\u0017�ں��=�": 1162690887,
+          "����ᙾ�꨾e�J�֟����ɽ����HG��ݔ���:=�?�����=�Mq�V\f": 1702057283,
+          "�����=�����ɽ�\t��": 1702057283
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "PF_TYPE_LITERAL": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "TimedEvent": {
+        "fields": {
+          "m_TimeBetweenEvents": 0,
+          "m_fNextEvent": 4
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "_": {
+        "fields": {
+          "": 0
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "____H___________H_I_H__H____": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      },
+      "_v_f__": {
+        "fields": {
+          "": 1447838038,
+          "DefaultFontAliasGroup": 4,
+          "P�5_�": -2123361711,
+          "P�sH�": -226543360,
+          "nVertexID": 1735357008,
+          "�p�f�": 1597482144,
+          "�Ζf�": 1721573584
+        },
+        "metadata": [],
+        "parent": null
+      },
+      "inv_image_camera_t": {
+        "fields": {
+          "angle": 0,
+          "fov": 12,
+          "orbit_distance": 48,
+          "target": 24,
+          "target_nudge": 36,
+          "zfar": 20,
+          "znear": 16
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "inv_image_data_t": {
+        "fields": {
+          "camera": 48,
+          "item": 16,
+          "light0": 156,
+          "light1": 188,
+          "lightfill": 128,
+          "lightsun": 100,
+          "map": 0
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "inv_image_item_t": {
+        "fields": {
+          "angle": 12,
+          "pose_sequence": 24,
+          "position": 0
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "inv_image_light_barn_t": {
+        "fields": {
+          "angle": 12,
+          "brightness": 24,
+          "color": 0,
+          "orbit_distance": 28
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "inv_image_light_fill_t": {
+        "fields": {
+          "angle": 12,
+          "brightness": 24,
+          "color": 0
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "inv_image_light_sun_t": {
+        "fields": {
+          "angle": 12,
+          "brightness": 24,
+          "color": 0
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "inv_image_map_t": {
+        "fields": {
+          "map_name": 0,
+          "map_rotation": 8
+        },
+        "metadata": [
+          {
+            "name": "MGetKV3ClassDefaults",
+            "type": "Unknown"
+          }
+        ],
+        "parent": null
+      },
+      "tR": {
+        "fields": {},
+        "metadata": [],
+        "parent": null
+      }
+    },
+    "enums": {
+      "C_q_": {
+        "alignment": 183,
+        "members": {
+          "": 7018141227189280829
+        },
+        "type": "unknown"
+      },
+      "D_Jj_": {
+        "alignment": 3,
+        "members": {
+          "": 6989586623725075793
+        },
+        "type": "unknown"
+      },
+      "__Jj_": {
+        "alignment": 36,
+        "members": {
+          "": -2233785413129700349
+        },
+        "type": "unknown"
+      },
+      "___": {
+        "alignment": 145,
+        "members": {
+          "": 7595448453092962927
+        },
+        "type": "unknown"
+      },
+      "___y": {
+        "alignment": 145,
+        "members": {
+          "": 0
+        },
+        "type": "unknown"
+      }
+    }
+  }
+}
