@@ -1,5 +1,5 @@
 // Generated using https://github.com/a2x/cs2-dumper
-// 2025-10-26 10:47:39.226903900 UTC
+// 2025-10-28 15:40:21.742466 UTC
 
 #![allow(non_upper_case_globals, non_camel_case_types, non_snake_case, unused)]
 
@@ -7,7 +7,7 @@ pub mod cs2_dumper {
     pub mod schemas {
         // Module: engine2.dll
         // Class count: 48
-        // Enum count: 1
+        // Enum count: 0
         pub mod engine2_dll {
             // Parent: None
             // Field count: 0
